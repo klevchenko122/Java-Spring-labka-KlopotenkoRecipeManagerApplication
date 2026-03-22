@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Категорії</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; }
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+<h1>Категорії рецептів</h1>
+
+<p>
+    <a href="/recipes">Рецепти</a>
+    <a href="/categories/new">Додати категорію</a>
+</p>
+
+<div th:if="${#lists.isEmpty(categories)}">
+    <p>Категорій поки немає.</p>
+</div>
+
+<div th:each="category : ${categories}" class="card">
+    <h3 th:text="${category.name}">Назва категорії</h3>
+
+    <form th:action="@{/categories/{id}/delete(id=${category.id})}" method="post">
+        <button type="submit">Видалити</button>
+    </form>
+</div>
+</body>
+</html>l>

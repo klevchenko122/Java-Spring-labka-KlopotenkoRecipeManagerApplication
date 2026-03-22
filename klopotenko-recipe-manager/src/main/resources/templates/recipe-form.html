@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${recipe.id == null ? 'Створити рецепт' : 'Редагувати рецепт'}">Форма рецепта</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; }
+        form {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+        }
+        input, textarea, select {
+            width: 100%;
+            margin-bottom: 12px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        textarea { min-height: 120px; }
+        .ingredient-row {
+            border: 1px solid #eee;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<a href="/recipes">← Назад до списку</a>
+
+<h1 th:text="${recipe.id == null ? 'Створити рецепт' : 'Редагувати рецепт'}"></h1>
+
+<form th:action="${recipe.id == null} ? @{/recipes} : @{/recipes/{id}(id=${recipe.id})}"
+      th:object="${recipe}"
+      method="post">
+
+    <label>Назва рецепта:</label>
+    <input type="text" th:field="*{title}" required>
+
+    <label>Опис:</label>
+    <textarea th:field="*{description}"></textarea>
+
+    <label>Інструкція приготування:</label>
+    <textarea th:field="*{instructions}"></textarea>
+
+    <label>Час приготування (хв):</label>
+    <input type="number" th:field="*{cookingTime}">
+
+    <label>Кількість порцій:</label>
+    <input type="number" th:field="*{servings}">
+
+    <label>URL зображення:</label>
+    <input type="text" th:field="*{imageUrl}">
+
+    <label>Категорія:</label>
+    <select th:field="*{categoryId}">
+        <option value="">-- Оберіть категорію --</option>
+        <option th:each="category : ${categories}"
+                th:value="${category.id}"
+                th:text="${category.name}">
+        </option>
+    </select>
+
+    <h3>Інгредієнти</h3>
+
+    <div th:each="ingredient, stat : *{ingredients}" class="ingredient-row">
+        <label>Назва інгредієнта:</label>
+        <input type="text" th:field="*{ingredients[__${stat.index}__].name}">
+
+        <label>Кількість:</label>
+        <input type="text" th:field="*{ingredients[__${stat.index}__].amount}">
+    </div>
+
+    <button type="submit">Зберегти</button>
+</form>
+</body>
+</html>

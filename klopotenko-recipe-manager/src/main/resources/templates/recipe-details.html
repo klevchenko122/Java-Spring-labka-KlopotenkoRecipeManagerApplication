@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${recipe.title}">Рецепт</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; }
+        .container {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        img { max-width: 400px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+<a href="/recipes">← Назад до списку</a>
+
+<div class="container">
+    <h1 th:text="${recipe.title}">Назва рецепта</h1>
+
+    <p><strong>Категорія:</strong> <span th:text="${recipe.categoryName}">Категорія</span></p>
+    <p><strong>Опис:</strong> <span th:text="${recipe.description}">Опис</span></p>
+    <p><strong>Час приготування:</strong> <span th:text="${recipe.cookingTime}">0</span> хв</p>
+    <p><strong>Порції:</strong> <span th:text="${recipe.servings}">0</span></p>
+
+    <div th:if="${recipe.imageUrl != null and !#strings.isEmpty(recipe.imageUrl)}">
+        <img th:src="${recipe.imageUrl}" alt="recipe image">
+    </div>
+
+    <h3>Інгредієнти</h3>
+    <ul>
+        <li th:each="ingredient : ${recipe.ingredients}">
+            <span th:text="${ingredient.name}">Інгредієнт</span>
+            -
+            <span th:text="${ingredient.amount}">Кількість</span>
+        </li>
+    </ul>
+
+    <h3>Інструкція приготування</h3>
+    <p th:text="${recipe.instructions}">Інструкція</p>
+</div>
+</body>
+</html>

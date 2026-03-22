@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Нова категорія</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; }
+        form {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 500px;
+        }
+        input {
+            width: 100%;
+            margin-bottom: 12px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<a href="/categories">← Назад до категорій</a>
+
+<h1>Створити категорію</h1>
+
+<form th:action="@{/categories}" th:object="${category}" method="post">
+    <label>Назва категорії:</label>
+    <input type="text" th:field="*{name}" required>
+
+    <button type="submit">Зберегти</button>
+</form>
+</body>
+</html>

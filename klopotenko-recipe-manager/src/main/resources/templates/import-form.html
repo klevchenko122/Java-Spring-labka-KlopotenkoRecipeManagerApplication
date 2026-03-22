@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Імпорт рецепта</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; }
+        form {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 700px;
+        }
+        input {
+            width: 100%;
+            margin-bottom: 12px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<a href="/recipes">← Назад до рецептів</a>
+
+<h1>Імпорт рецепта Євгена Клопотенка</h1>
+
+<p>Встав URL сторінки рецепта з сайту klopotenko.com</p>
+
+<form th:action="@{/import}" method="post">
+    <label>URL рецепта:</label>
+    <input type="text" name="url" placeholder="https://klopotenko.com/..." required>
+
+    <button type="submit">Імпортувати</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Рецепти Євгена Клопотенка</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; }
+        h1 { color: #333; }
+        a, button { margin-right: 10px; }
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+<h1>Менеджер рецептів Євгена Клопотенка</h1>
+
+<p>
+    <a href="/recipes/new">Додати рецепт</a>
+    <a href="/import">Імпортувати рецепт Клопотенка</a>
+    <a href="/categories">Категорії</a>
+    <a href="/categories/new">Додати категорію</a>
+</p>
+<div th:if="${#lists.isEmpty(recipes)}">
+    <p>Рецептів поки немає.</p>
+</div>
+
+<div th:each="recipe : ${recipes}" class="card">
+    <h3 th:text="${recipe.title}">Назва рецепта</h3>
+    <p><strong>Категорія:</strong> <span th:text="${recipe.categoryName}">Категорія</span></p>
+    <p><strong>Опис:</strong> <span th:text="${recipe.description}">Опис</span></p>
+    <p><strong>Час приготування:</strong> <span th:text="${recipe.cookingTime}">0</span> хв</p>
+
+    <a th:href="@{/recipes/{id}(id=${recipe.id})}">Переглянути</a>
+    <a th:href="@{/recipes/{id}/edit(id=${recipe.id})}">Редагувати</a>
+
+    <form th:action="@{/recipes/{id}/delete(id=${recipe.id})}" method="post" style="display:inline;">
+        <button type="submit">Видалити</button>
+    </form>
+</div>
+</body>
+</html>
